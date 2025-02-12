@@ -3,21 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Image Project</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Checkboxes</title>
+    <style>
+        /* Inline styles for simplicity */
+        body {
+            font-family: sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Valentine_Card.jpg'); /* Your default image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        /* Media query for smaller screens (e.g., mobile) */
+        @media (max-width: 768px) { /* Adjust 768px as needed */
+            .background-image {
+                background-size: contain; /* Fit image within screen */
+                background-color: black; /* Set background color to black */
+
+            }
+            /* Styles for labels on mobile */
+            .checkbox-container label {
+              flex-direction: row; /* Keep horizontal layout */
+              align-items: center;    /* Center items vertically */
+            }
+            .checkbox-container span{
+                color: white;
+                order: -1; /* Move span to the beginning */
+                margin-right: 5px; /* Add some space between text and checkbox */
+            }
+        }
+         @media (min-width: 769px) {
+             .checkbox-container span{
+                display:none;
+            }
+         }
+
+        .checkbox-container {
+            position: absolute;
+            top: 85%;
+            left: 47%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 150px;
+            z-index: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 40px;
+            height: 40px;
+            border: 2px solid pink;
+            border-radius: 4px;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+
+        input[type="checkbox"]#yesCheckbox:checked {
+             background-color: white;
+         }
+
+        input[type="checkbox"]#noCheckbox:checked {
+            background-color: pink;
+        }
+
+        input[type="checkbox"]:checked::before {
+            content: '\2713';
+            display: block;
+            text-align: center;
+            font-size: 32px;
+            line-height: 36px;
+            color: black;
+        }
+
+        input[type="checkbox"]#noCheckbox:checked::before {
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
     <div class="background-image"></div>
+
     <div class="checkbox-container">
         <label>
             <input type="checkbox" id="yesCheckbox">
-            <span>Yes</span>
-        </label>
+            <span>Yes</span> </label>
         <label>
             <input type="checkbox" id="noCheckbox">
-            <span>No</span>
-        </label>
+            <span>No</span></label>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const yesCheckbox = document.getElementById('yesCheckbox');
+        const noCheckbox = document.getElementById('noCheckbox');
+        const backgroundImage = document.querySelector('.background-image');
+        const checkboxContainer = document.querySelector('.checkbox-container');
+
+        yesCheckbox.addEventListener('mouseover', () => {
+             yesCheckbox.checked = true;
+         });
+
+        function handleClick() {
+            backgroundImage.style.backgroundImage = "url('Valentine_CardYes.jpg')";
+            setTimeout(() => {
+                checkboxContainer.classList.add('hidden');
+            }, 50);
+        }
+
+        yesCheckbox.addEventListener('click', handleClick);
+        noCheckbox.addEventListener('click', () => {
+            yesCheckbox.checked = true;
+            handleClick();
+        });
+
+    </script>
 </body>
 </html>
