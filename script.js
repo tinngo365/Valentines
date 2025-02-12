@@ -5,7 +5,7 @@ const backgroundImage = document.querySelector('.background-image');
 // Function to move the "No" checkbox to a random position
 function moveNoCheckbox() {
     const maxX = window.innerWidth - noCheckbox.offsetWidth - 80; // substract no span width
-    const maxY (window.innerHeight - noCheckbox.offsetHeight) / 2;
+    const maxY = (window.innerHeight - noCheckbox.offsetHeight) / 2;
 
     const randomX = Math.max(0, Math.floor(Math.random() * maxX)); // Ensure not negative
     const randomY = Math.max(0, Math.floor(Math.random() * maxY));
